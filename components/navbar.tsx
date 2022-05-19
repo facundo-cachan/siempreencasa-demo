@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react'
-import axios from 'axios'
-import useAppContext from 'context/app'
+
 import uuid from 'utils/uuid'
 import { LoginProps } from 'pages/'
 import { Img } from 'components/'
@@ -14,7 +13,6 @@ type Item = {
 }
 
 const NavBar = ({ providers }: LoginProps) => {
-  const { setModalPrimary, handleSubmit } = useAppContext()
   const [showMenu, setShowMenu] = useState<boolean>(false)
   const [items, setItems] = useState<Item[]>([])
   const { data: session } = useSession()
@@ -33,21 +31,6 @@ const NavBar = ({ providers }: LoginProps) => {
   }, [session])
 
   const primaryNavBar = () => setShowMenu(!showMenu)
-  const onSubmit = (data: any) => {
-    axios.post('/api/hello', data).then(({ status }: { status: number }) => {
-      if (status === 200) {
-        window.alert('Data ok')
-      }
-    })
-  }
-
-  const configModal = () => {
-    setModalPrimary({
-      title: 'Register',
-      btnPrimaryText: 'Save',
-      btnPrimaryAction: handleSubmit(onSubmit),
-    })
-  }
 
   return (
     <nav
@@ -56,16 +39,11 @@ const NavBar = ({ providers }: LoginProps) => {
       aria-label="main navigation"
     >
       <div className="navbar-brand">
-        <Link className="navbar-item" href={process.env.NEXT_PUBLIC_URL}>
-          <a>
-            <Img
-              src={`${process.env.NEXT_PUBLIC_URL}/img/new_logo-black.svg`}
-              alt="Siempre En Casa - Logo"
-              sizes={[150, 100]}
-            />
-          </a>
-        </Link>
-
+        <Img
+          src={`${process.env.NEXT_PUBLIC_URL}/img/new_logo-black.svg`}
+          alt="Siempre En Casa - Logo"
+          sizes={[150, 100]}
+        />
         <a
           role="button"
           className={`navbar-burger${showMenu ? ' is-active' : ''}`}
@@ -109,7 +87,6 @@ const NavBar = ({ providers }: LoginProps) => {
                   <button
                     className="button is-primary modal-trigger-primary"
                     data-target="modal-primary"
-                    onClick={configModal}
                   >
                     <strong>Sign up</strong>
                   </button>

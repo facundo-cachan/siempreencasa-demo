@@ -37,7 +37,7 @@ function App({
       <Head>
         <title>Siempre En Casa | Demo</title>
         <link
-          href={`${process.env.NEXT_PUBLIC_URL}/img/favicon.ico`}
+          href={`${process.env.NEXT_PUBLIC_URL}/favicon.ico`}
           rel="icon"
         />
         <meta charSet="utf-8" />
@@ -47,7 +47,7 @@ function App({
         <meta name="description" content="Facundo Cachan" />
         <link
           rel="icon"
-          href={`${process.env.NEXT_PUBLIC_URL}/img/favicon-32x32.png`}
+          href={`${process.env.NEXT_PUBLIC_URL}/favicon-32x32.png`}
         />
         <meta name="application-name" content="Facundo Cachan - PWA App" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -58,7 +58,7 @@ function App({
         <meta name="mobile-web-app-capable" content="yes" />
         <link
           rel="apple-touch-icon"
-          href={`${process.env.NEXT_PUBLIC_URL}/img/favicon-32x32.png`}
+          href={`${process.env.NEXT_PUBLIC_URL}/favicon-32x32.png`}
         />
         {icons.map(({ src, sizes }, index: number) => (
           <link
@@ -72,13 +72,13 @@ function App({
           rel="icon"
           type="image/svg"
           sizes="32x32"
-          href={`${process.env.NEXT_PUBLIC_URL}/img/favicon-32x32.png`}
+          href={`${process.env.NEXT_PUBLIC_URL}/favicon-32x32.png`}
         />
         <link
           rel="icon"
           type="image/svg"
           sizes="16x16"
-          href={`${process.env.NEXT_PUBLIC_URL}/img/favicon-32x32.png`}
+          href={`${process.env.NEXT_PUBLIC_URL}/favicon-32x32.png`}
         />
         <link
           rel="manifest"
@@ -86,12 +86,12 @@ function App({
         />
         <link
           rel="mask-icon"
-          href={`${process.env.NEXT_PUBLIC_URL}/img/favicon-32x32.png`}
+          href={`${process.env.NEXT_PUBLIC_URL}/favicon-32x32.png`}
           color="transparent"
         />
         <link
           rel="shortcut icon"
-          href={`${process.env.NEXT_PUBLIC_URL}/img/favicon-32x32.png`}
+          href={`${process.env.NEXT_PUBLIC_URL}/favicon-32x32.png`}
         />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:url" content="https://facundo-cachan.dev" />
