@@ -1,34 +1,115 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Front-end Challenge
 
-## Getting Started
+## About the Challenge 
 
-First, run the development server:
+We will build a product list, with a slight twist. We provide you with a sample database of products (real products!) we use here in Siempre en Casa. 
+
+### What should you develop?
+
+### Visual
+We want you to feel free to develop the markup the way you want, we have no wireframes or something like that for this task. You will create one screen:
+  - Products page:
+    - We want to see the products as cards, with the product title, price and buttons to add/remove the product .
+    - When the user clicks on a product, we want to display the recommended items for that product. The customer should be able to add the recommended product to the cart, too.
+    - The user should be able to filter all items matching a certain category. I.e. show "wines", or "beers" only.
+
+### About the API
+The API has the following endpoints: 
+- `products`
+- `recommendations`
+- `categories`
+
+We will use a small server called [json-server](https://github.com/typicode/json-server) to serve the API.
 
 ```bash
-npm run dev
-# or
-yarn dev
+# install the server (you may need to use _sudo_ to run this command)
+npm install -g json-server
+# start the server using a specific port
+json-server --watch db.json --port 6000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The `/products` endpoint will give you a list of products: 
+```bash
+curl localhost:6000/products
+# sample output
+[
+    {
+        "product_id": "4854054682669",
+        "variant_id": "33619195002925",
+        "total_price": "912.00",
+        "price_per_unit": "152",
+        "list_price_id": "7",
+        "sku": "VINO-9991-6-6",
+        "categories": [
+            "vinos",
+            "mas vendidos"
+        ],
+        "units_per_pack": 6,
+        "image_url": "https://cdn.shopify.com/s/files/1/0257/2242/1293/products/SEC-Vinos-Novecento-Raices-Cabernet.jpg?v=1585767255",
+        "handle": "vino-novecento-raices-750-ml-tinto-cabernet-sauvignon",
+        "compare_at_price": "1140.00",
+        "allowed_packs": [1, 2, 3],
+        "name": "Vino Novecento Raices 750 ml - Tinto Cabernet Sauvignon",
+        "description": "Vino Novecento Raices 750 ml",
+        "discount_percentage": 20,
+        "size": 750,
+        "price_per_litre": "10"
+    }
+    ...
+]
+```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+The `/recommendations` endpoint will give you a list of recommended products, based on a product_id: 
+```bash
+curl localhost:6000/recommendations?product_id=4854058319917
+# sample output
+[
+  {
+    "product_id": "4854058319917",
+    "recommendations": [
+      "4854058647597",
+      "4854058942509",
+      "4854059270189"
+    ]
+  }
+]
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+The `/categories` endpoint will give you a list with all the categories, we sell. Each product has a list of categories it may appear.
+```bash
+curl localhost:6000/categories
+# example output
+[
+  "aguas",
+  "vinos",
+  "cervezas",
+  "gaseosas",
+  "mas vendidos"
+]
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+### Tech Requirements
+- You need to create a repo on GitHub to host your code
+- We use Next.js so it would be great if you used it too 🔥
+- Bonus points for Typescript
+- We use styled-components too
+- Keep it simple, no need for fancy stuff :)
+- TESTS 💛 We really love testing our code and features here!
+- You're not allowed to use any CSS Frameworks (Bootstrap, Bulma, PureCSS etc.)
+- I want to be able to run your project locally by using `npm start`
 
-To learn more about Next.js, take a look at the following resources:
+## Evaluation Method
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Your code will be under review of the Siempre en Casa Engineering team. What we will look for:
+- **Good Practices and patterns**
+- **Code and Folder Structure**
+- **Componentization and data flow**
+- **Easy to understand code (again, no need for fancy stuff)**
+- **Tests**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Feel free to implement it the way you feel more confortable :)
 
-## Deploy on Vercel
+## How to deliver it
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Please, use Github to host your code and add send a link to the person who sent you the instructions. 
