@@ -9,8 +9,7 @@ export const AppContext: Context<any> = createContext<any>(null)
 
 export const AppProvider = ({ children }: ProviderType) => {
   const [loading, setLoading] = useState<boolean>(false)
-  const [submitModalPrimaryBtn, setSubmitModalPrimary] =
-    useState<boolean>(true)
+  const [submitModalPrimaryBtn, setSubmitModalPrimary] = useState<boolean>(true)
   const [modalPrimary, setModalPrimary] = useState<ModalType>({
     title: 'Title',
     btnPrimary: 'Primary Button',

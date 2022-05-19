@@ -15,14 +15,17 @@ import type { Product } from 'lib/interfaces'
 import styles from '../styles/Home.module.css'
 
 export type IndexProps = {
-  products: Product[];
+  products: Product[]
   providers: ClientSafeProvider
 }
 
 const Home: NextPage<IndexProps> = ({ providers, products }: IndexProps) => {
-
   const recommendations = async (id: string) => {
-    const { data: { 0: { recommendations } } } = await axios(`/api/recommendations/${id}`);
+    const {
+      data: {
+        0: { recommendations },
+      },
+    } = await axios(`${process.env.NEXT_PUBLIC_URL}/api/recommendations/${id}`)
     console.log(recommendations)
   }
 
@@ -32,26 +35,27 @@ const Home: NextPage<IndexProps> = ({ providers, products }: IndexProps) => {
       <div className={styles.container}>
         <main className={styles.main}>
           <div className={styles.grid}>
-            {
-              products && products.map(({
-                name,
-                description,
-                image_url,
-                categories,
-                price_per_litre,
-                product_id
-              }) => (
-                <Cards.Default
-                  key={uuid()}
-                  title={name}
-                  description={description}
-                  image_url={image_url}
-                  hashtgs={categories}
-                  price={price_per_litre}
-                  onClicked={() => recommendations(product_id)}
-                />
-              ))
-              }
+            {products &&
+              products.map(
+                ({
+                  name,
+                  description,
+                  image_url,
+                  categories,
+                  price_per_litre,
+                  product_id,
+                }) => (
+                  <Cards.Default
+                    key={uuid()}
+                    title={name}
+                    description={description}
+                    image_url={image_url}
+                    hashtgs={categories}
+                    price={price_per_litre}
+                    onClicked={() => recommendations(product_id)}
+                  />
+                )
+              )}
           </div>
         </main>
 
@@ -63,22 +67,28 @@ const Home: NextPage<IndexProps> = ({ providers, products }: IndexProps) => {
           >
             Powered by{' '}
             <span className={styles.logo}>
-              <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+              <Image
+                src="/vercel.svg"
+                alt="Vercel Logo"
+                width={72}
+                height={16}
+              />
             </span>
           </a>
         </footer>
       </div>
     </>
-
   )
 }
 
-export async function getStaticProps() {
-  const { data }: Product = await axios('http://localhost:3001/api/products/');
+export async function getServerSideProps() {
+  const { data }: Product = await axios(
+    `${process.env.NEXT_PUBLIC_URL}/api/products`
+  )
   return {
     props: {
       providers: await getProviders(),
-      products: data
+      products: data,
     },
   }
 }

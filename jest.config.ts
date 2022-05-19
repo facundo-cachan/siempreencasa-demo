@@ -1,6 +1,6 @@
-import nextJest from 'next/jest';
-import {defaults} from 'jest-config';
-import type {Config} from '@jest/types';
+import nextJest from 'next/jest'
+import { defaults } from 'jest-config'
+import type { Config } from '@jest/types'
 
 const createJestConfig = nextJest({
   // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
@@ -24,7 +24,9 @@ const customJestConfig: Config.InitialOptions = {
   testMatch: ['**/__tests__/**/*.ts?'],
   testPathIgnorePatterns: ['/node_modules/', '/cypress/'],
   moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx'],
-  transformIgnorePatterns: ['<rootDir>/[/\\\\]node_modules[/\\\\].+\\.(ts|tsx)$'],
+  transformIgnorePatterns: [
+    '<rootDir>/[/\\\\]node_modules[/\\\\].+\\.(ts|tsx)$',
+  ],
   transform: {
     '^.+\\.(ts|tsx)$': '@swc/jest',
     '\\.graphql$': [
@@ -39,7 +41,7 @@ const customJestConfig: Config.InitialOptions = {
   collectCoverageFrom: [
     '**/*.{ts,tsx}',
     '!**/node_modules/**',
-    '!**/cypress/**'
+    '!**/cypress/**',
   ],
   coverageThreshold: {
     global: {

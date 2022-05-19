@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react'
-import axios from "axios";
+import axios from 'axios'
 import useAppContext from 'context/app'
 import uuid from 'utils/uuid'
 import { LoginProps } from 'pages/'
@@ -34,12 +34,11 @@ const NavBar = ({ providers }: LoginProps) => {
 
   const primaryNavBar = () => setShowMenu(!showMenu)
   const onSubmit = (data: any) => {
-    axios.post('/api/hello', data)
-    .then(({status}: {status: number}) => {
+    axios.post('/api/hello', data).then(({ status }: { status: number }) => {
       if (status === 200) {
         window.alert('Data ok')
       }
-    });
+    })
   }
 
   const configModal = () => {
@@ -57,14 +56,14 @@ const NavBar = ({ providers }: LoginProps) => {
       aria-label="main navigation"
     >
       <div className="navbar-brand">
-        <Link className="navbar-item" href="/">
-         <a>
+        <Link className="navbar-item" href={process.env.NEXT_PUBLIC_URL}>
+          <a>
             <Img
-               src={`${process.env.NEXT_PUBLIC_URL}/img/new_logo-black.svg`}
-               alt="Siempre En Casa - Logo"
-               sizes={[150,100]}
+              src={`${process.env.NEXT_PUBLIC_URL}/img/new_logo-black.svg`}
+              alt="Siempre En Casa - Logo"
+              sizes={[150, 100]}
             />
-         </a>
+          </a>
         </Link>
 
         <a

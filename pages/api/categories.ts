@@ -2,14 +2,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default function handler(
-   _req: NextApiRequest,
-   res: NextApiResponse<string[]>
+  _req: NextApiRequest,
+  res: NextApiResponse<string[]>
 ) {
-   res.status(200).json([
-      "aguas",
-      "vinos",
-      "cervezas",
-      "gaseosas",
-      "mas vendidos"
-   ])
+  res
+    .status(200)
+    .json(['aguas', 'vinos', 'cervezas', 'gaseosas', 'mas vendidos'])
 }

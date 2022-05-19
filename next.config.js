@@ -11,14 +11,13 @@ const {
   FACEBOOK_SECRET,
 } = process.env
 const path = require('path')
-const withSass = require('@zeit/next-sass')
 const withPWA = require('next-pwa')
 const runtimeCaching = require('next-pwa/cache')
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: ANALYZE === 'true',
 })
 
-const ContentSecurityPolicy = `default-src 'self';script-src 'self';child-src ${NEXT_PUBLIC_URL};style-src 'self' ${NEXT_PUBLIC_URL};font-src 'self';`;
+// const ContentSecurityPolicy = `default-src 'self';script-src 'self';child-src ${NEXT_PUBLIC_URL};style-src 'self' ${NEXT_PUBLIC_URL};font-src 'self';`
 const securityHeaders = [
   {
     key: 'X-DNS-Prefetch-Control',
@@ -72,13 +71,13 @@ const config = {
     ]
   },
 }
-module.exports = withSass({
+module.exports = {
   cssModules: true,
   target: 'serverless',
   env: {
     JWT_SECRET,
   },
-})
+}
 if (NODE_ENV === 'production') {
   module.exports = withPWA({
     pwa: {
