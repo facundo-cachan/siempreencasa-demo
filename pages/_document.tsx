@@ -45,13 +45,9 @@ export default class MyDocument extends Document {
           />
           <link
             rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
-          />
-          <link
-            rel="stylesheet"
+            crossOrigin="anonymous"
             href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
             integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
-            crossOrigin="anonymous"
           />
           <script
             type="application/ld+json"
@@ -61,6 +57,7 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <div id="modal-root" />
         </body>
       </Html>
     )

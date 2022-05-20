@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
+
+import useAppContext from 'context/app'
 import {
   StyledModalOverlay,
   StyledModal,
   StyledModalHeader,
   StyledModalBody,
   StyledModalTitle,
+  StyledModalFooter,
 } from '.'
+import { Buttons } from 'components/'
 
 const Default = ({ show, onClose, children, title }) => {
+  const { state, dispatch } = useAppContext()
   const [isBrowser, setIsBrowser] = useState(false)
 
   useEffect(() => {
@@ -22,14 +27,22 @@ const Default = ({ show, onClose, children, title }) => {
 
   const modalContent = show ? (
     <StyledModalOverlay>
-      <StyledModal>
+      <StyledModal width="30%">
         <StyledModalHeader>
-          <a href="#" onClick={handleCloseClick}>
-            x
-          </a>
+          <a onClick={handleCloseClick}>x</a>
         </StyledModalHeader>
         {title && <StyledModalTitle>{title}</StyledModalTitle>}
         <StyledModalBody>{children}</StyledModalBody>
+        <StyledModalFooter>
+          {state.length > 0 && (
+            <Buttons.Default
+              text="Reset"
+              onClick={() => dispatch({ type: 'reset' })}
+            >
+              Add
+            </Buttons.Default>
+          )}
+        </StyledModalFooter>
       </StyledModal>
     </StyledModalOverlay>
   ) : null

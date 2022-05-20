@@ -3,8 +3,8 @@
  * @return {HTMLProps<HTMLElement>} Button with optionals styles and icons.
  */
 
- import { HTMLProps } from 'react'
+import { HTMLProps } from 'react'
 
- const CustomOffline = (): HTMLProps<HTMLElement> => <h1>Offline Page</h1>
- 
- export default CustomOffline
+const CustomOffline = (): HTMLProps<HTMLElement> => <h1>Offline Page</h1>
+
+export default CustomOffline
