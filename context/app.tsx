@@ -1,5 +1,12 @@
-import { Context, createContext, ReactNode, useContext, useState } from 'react'
-import { ModalType } from 'components/modal'
+import {
+  Context,
+  createContext,
+  ReactNode,
+  useContext,
+  useReducer,
+  useState,
+} from 'react'
+import { reducer } from 'context/reducer'
 
 type ProviderType = {
   children: ReactNode
@@ -9,21 +16,15 @@ export const AppContext: Context<any> = createContext<any>(null)
 
 export const AppProvider = ({ children }: ProviderType) => {
   const [loading, setLoading] = useState<boolean>(false)
-  const [submitModalPrimaryBtn, setSubmitModalPrimary] = useState<boolean>(true)
-  const [modalPrimary, setModalPrimary] = useState<ModalType>({
-    title: 'Title',
-    btnPrimary: 'Primary Button',
-  })
+  const [state, dispatch] = useReducer(reducer, [])
 
   return (
     <AppContext.Provider
       value={{
         loading,
         setLoading,
-        modalPrimary,
-        setModalPrimary,
-        submitModalPrimaryBtn,
-        setSubmitModalPrimary,
+        state,
+        dispatch,
       }}
     >
       {children}

@@ -1,48 +1,48 @@
 import { CardType } from '.'
-import { Img } from 'components/'
+import { Img, Buttons } from 'components/'
 import uuid from 'utils/uuid'
 
+import {
+  Card,
+  CardImage,
+  CardContent,
+  CardTitle,
+  CardText,
+  CardFooter,
+} from './styled'
+
 const Default = ({
-  hashtgs,
-  title,
-  subtitle,
+  name,
+  categories,
   description,
   image_url,
-  price,
-  onClicked,
+  price_per_litre,
+  clickOnImage,
+  clickBtnPrimary,
 }: CardType) => (
-  <div className="card">
+  <Card>
     {image_url && (
-      <div className="card-image" onClick={onClicked}>
-        <Img src={image_url} alt={title} sizes={[200, 200]} />
-      </div>
+      <CardImage onClick={clickOnImage}>
+        <Img src={image_url} alt={name} sizes={[200, 200]} />
+      </CardImage>
     )}
-
-    <div className="card-content">
-      <div className="media">
-        <div className="media-content">
-          <p className="title is-4">{title}</p>
-          <p className="subtitle is-6">{subtitle}</p>
-          <p>
-            {hashtgs.map((tag: string) => (
-              <span key={uuid()}>#{tag} </span>
-            ))}
-          </p>
-        </div>
-      </div>
-      {description && <div className="content">{description}</div>}
-      <br />
-      <p>ARS {price}$</p>
-    </div>
-    <footer className="card-footer">
-      <p className="card-footer-item">
-        <span>Add</span>
+    <CardContent>
+      {name && (
+        <CardTitle>
+          {name} | ARS {price_per_litre}$
+        </CardTitle>
+      )}
+      {description && <CardText>{description}</CardText>}
+    </CardContent>
+    <CardFooter backgroundColor="#99B282">
+      <p>
+        {categories.map((tag: string) => (
+          <span key={uuid()}>#{tag} </span>
+        ))}
       </p>
-      <p className="card-footer-item">
-        <span>Remove</span>
-      </p>
-    </footer>
-  </div>
+      <Buttons.Default text="Add" onClick={clickBtnPrimary} />
+    </CardFooter>
+  </Card>
 )
 
 export default Default

@@ -19,9 +19,11 @@
     "baseUrl": ".",
     "paths": {
       "components": ["components"],
+      "context": ["context"],
+      "lib": ["lib"],
       "pages": ["pages"],
       "utils": ["utils"],
-      "lib": ["lib"]
+      "styles": ["utils"],
     }
   },
   "include": [

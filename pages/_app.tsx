@@ -3,10 +3,10 @@ import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import Script from 'next/script'
-import { SessionProvider } from 'next-auth/react'
+import { getProviders, SessionProvider } from 'next-auth/react'
 
 import { AppProvider } from 'context/app'
-import { Modals } from 'components/'
+import { Modals, NavBar } from 'components'
 import 'styles/globals.css'
 
 type NextPageWithLayout = NextPage & {
@@ -22,24 +22,23 @@ function App({
 }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page)
   const [icons, setIcons] = useState<[]>([])
+  const [providers, setProviders] = useState()
 
   useEffect(() => {
-    async function SetIcons() {
+    (async () => {
       const icons = await fetch('/json/icons.json')
       const json = await icons.json()
+      const gotProviders = await getProviders()
+      setProviders(gotProviders)
       setIcons(json)
-    }
-    SetIcons()
+    })()
   }, [])
 
   return (
     <>
       <Head>
         <title>Siempre En Casa | Demo</title>
-        <link
-          href={`${process.env.NEXT_PUBLIC_URL}/favicon.ico`}
-          rel="icon"
-        />
+        <link href={`${process.env.NEXT_PUBLIC_URL}/favicon.ico`} rel="icon" />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width,initial-scale=0" />
@@ -135,6 +134,7 @@ function App({
       />
       <SessionProvider session={session} refetchInterval={5 * 60}>
         <AppProvider>
+          <NavBar providers={providers} />
           {getLayout(<Component {...pageProps} loading={true} />)}
           <Modals.Default />
         </AppProvider>

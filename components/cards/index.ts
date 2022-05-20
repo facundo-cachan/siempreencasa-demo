@@ -4,5 +4,6 @@ export { Default }
 
 export type CardType = Product & {
   hashtgs: string[]
-  onClick?: () => void
+  clickOnImage?: () => void
+  clickBtnPrimary?: () => void
 }
