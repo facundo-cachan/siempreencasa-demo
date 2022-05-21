@@ -23,15 +23,9 @@
       "lib": ["lib"],
       "pages": ["pages"],
       "utils": ["utils"],
-      "styles": ["utils"],
+      "styles": ["styles"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "./pages/**/*.(ts|tsx)$"
-  ],
-  "exclude": [
-    "node_modules",
-    "__tests__/**/*",
-  ]
+  "include": ["next-env.d.ts", "./pages/**/*.(ts|tsx)$"],
+  "exclude": ["node_modules", "__tests__/**/*"]
 }

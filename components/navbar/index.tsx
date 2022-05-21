@@ -4,7 +4,7 @@ import { useSession, signIn, signOut } from 'next-auth/react'
 
 import useAppContext from 'context/app'
 import uuid from 'utils/uuid'
-import { Img, Buttons, Modals } from 'components/'
+import { Icon, Img, Buttons, Modals } from 'components/'
 import {
   NavbarContainer,
   LogoImg,
@@ -25,7 +25,7 @@ type NavbarProps = {
 }
 
 const ALink = ({ href, name }: Item) => (
-  <Link prefetch href={href} passHref>
+  <Link href={href} passHref>
     <NavbarStyledLink>{name}</NavbarStyledLink>
   </Link>
 )
@@ -75,9 +75,8 @@ const NavBar = ({ providers }: NavbarProps) => {
           >
             {showMenu ? <>&#10005;</> : <> &#8801;</>}
           </OpenLinksButton>
-
           <NavbarStyledLink onClick={() => setShowModal(!showModal)}>
-            {state?.length}
+            <Icon icon="cart-shopping" badge={state?.length || 0} />
           </NavbarStyledLink>
         </NavbarLinkContainer>
       </NavbarContainer>
@@ -104,7 +103,7 @@ const NavBar = ({ providers }: NavbarProps) => {
                 </Modals.StyledModalDescription>
                 <Buttons.Default
                   text="Remove"
-                  onClick={() =>
+                  action={() =>
                     dispatch({ type: 'remove', payload: product_id })
                   }
                 >

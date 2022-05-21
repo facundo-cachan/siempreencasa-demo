@@ -5,8 +5,10 @@ import Head from 'next/head'
 import Script from 'next/script'
 import { getProviders, SessionProvider } from 'next-auth/react'
 
+import uuid from 'utils/uuid'
 import { AppProvider } from 'context/app'
 import { Modals, NavBar } from 'components'
+
 import 'styles/globals.css'
 
 type NextPageWithLayout = NextPage & {
@@ -23,6 +25,7 @@ function App({
   const getLayout = Component.getLayout ?? ((page) => page)
   const [icons, setIcons] = useState<[]>([])
   const [providers, setProviders] = useState()
+  const { NEXT_PUBLIC_URL } = process.env
 
   useEffect(() => {
     (async () => {
@@ -38,16 +41,13 @@ function App({
     <>
       <Head>
         <title>Siempre En Casa | Demo</title>
-        <link href={`${process.env.NEXT_PUBLIC_URL}/favicon.ico`} rel="icon" />
+        <link href={`${NEXT_PUBLIC_URL}/favicon.ico`} rel="icon" />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width,initial-scale=0" />
         <meta name="theme-color" content="magenta" />
         <meta name="description" content="Facundo Cachan" />
-        <link
-          rel="icon"
-          href={`${process.env.NEXT_PUBLIC_URL}/favicon-32x32.png`}
-        />
+        <link rel="icon" href={`${NEXT_PUBLIC_URL}/favicon-32x32.png`} />
         <meta name="application-name" content="Facundo Cachan - PWA App" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -57,40 +57,37 @@ function App({
         <meta name="mobile-web-app-capable" content="yes" />
         <link
           rel="apple-touch-icon"
-          href={`${process.env.NEXT_PUBLIC_URL}/favicon-32x32.png`}
+          href={`${NEXT_PUBLIC_URL}/favicon-32x32.png`}
         />
-        {icons.map(({ src, sizes }, index: number) => (
+        {icons.map(({ src, sizes }) => (
           <link
-            key={index}
+            key={uuid()}
             rel="apple-touch-icon"
             sizes={sizes}
-            href={`${process.env.NEXT_PUBLIC_URL}/img/${src}`}
+            href={`${NEXT_PUBLIC_URL}/img/${src}`}
           />
         ))}
         <link
           rel="icon"
           type="image/svg"
           sizes="32x32"
-          href={`${process.env.NEXT_PUBLIC_URL}/favicon-32x32.png`}
+          href={`${NEXT_PUBLIC_URL}/favicon-32x32.png`}
         />
         <link
           rel="icon"
           type="image/svg"
           sizes="16x16"
-          href={`${process.env.NEXT_PUBLIC_URL}/favicon-32x32.png`}
+          href={`${NEXT_PUBLIC_URL}/favicon-32x32.png`}
         />
-        <link
-          rel="manifest"
-          href={`${process.env.NEXT_PUBLIC_URL}/manifest.webmanifest`}
-        />
+        <link rel="manifest" href={`${NEXT_PUBLIC_URL}/manifest.webmanifest`} />
         <link
           rel="mask-icon"
-          href={`${process.env.NEXT_PUBLIC_URL}/favicon-32x32.png`}
+          href={`${NEXT_PUBLIC_URL}/favicon-32x32.png`}
           color="transparent"
         />
         <link
           rel="shortcut icon"
-          href={`${process.env.NEXT_PUBLIC_URL}/favicon-32x32.png`}
+          href={`${NEXT_PUBLIC_URL}/favicon-32x32.png`}
         />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:url" content="https://facundo-cachan.dev" />

@@ -1,4 +1,6 @@
+import { ReactChild } from 'react'
 import styled, { StyledComponent } from 'styled-components'
+import Icon from '../icon'
 
 import Default from './default'
 export { Default }
@@ -16,10 +18,30 @@ export type ButtonType = StringWithAutocomplete<
   | 'dark'
 >
 
+enum Btn {
+  button = 'button',
+  submit = 'submit',
+  reset = 'reset',
+}
+
 export type ButtonProps = {
-  children?: React.ReactNode
-  text: string
-  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  accessKey?: string
+  action?: () => void
+  ariaLabel?: string
+  children?: ReactChild
+  className?: ButtonType
+  color?: string
+  disabled?: boolean
+  endIcon?: Icon
+  href?: string
+  id?: string
+  loading?: boolean
+  name?: string
+  startIcon?: Icon
+  tabIndex?: number
+  text?: string
+  title?: string
+  type?: Btn
 }
 
 export const Button: StyledComponent<'button', any, {}, never> = styled.button`

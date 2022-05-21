@@ -37,7 +37,7 @@ const Default = ({ show, onClose, children, title }) => {
           {state.length > 0 && (
             <Buttons.Default
               text="Reset"
-              onClick={() => dispatch({ type: 'reset' })}
+              action={() => dispatch({ type: 'reset' })}
             >
               Add
             </Buttons.Default>
