@@ -53,7 +53,7 @@ const Product: NextPage<IndexProps> = ({ products }: IndexProps) => {
 
   useEffect(() => {
     setProductsFiltered(products)
-  }, [])
+  }, [products])
 
   const recommendations = (id: string) => {
     axios(`${process.env.NEXT_PUBLIC_URL}/api/recommendations/${id}`).then(
