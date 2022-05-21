@@ -22,7 +22,7 @@ const Default = ({ show, onClose, children, title }) => {
 
   const modalContent = show ? (
     <StyledModalOverlay>
-      <StyledModal>
+      <StyledModal width="20%">
         <StyledModalHeader>
           <a href="#" onClick={handleCloseClick}>
             x

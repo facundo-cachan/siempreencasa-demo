@@ -10,7 +10,7 @@ const createJestConfig = nextJest({
 // Add any custom config to be passed to Jest
 const customJestConfig: Config.InitialOptions = {
   verbose: true,
-  rootDir: './',
+  rootDir: '.',
   roots: ['<rootDir>'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {
@@ -18,21 +18,26 @@ const customJestConfig: Config.InitialOptions = {
     '\\.(gif|ttf|eot|svg|png)$': '<rootDir>/test/__mocks__/fileMock.js',
     '^@/(.*)$': '<rootDir>/$1',
     '^components/(.*)$': '<rootDir>/components/$1',
+    '^context/(.*)$': '<rootDir>/context/$1',
+    '^lib/(.*)$': '<rootDir>/lib/$1',
     '^pages/(.*)$': '<rootDir>/pages/$1',
+    '^utils/(.*)$': '<rootDir>/utils/$1',
+    '^styles/(.*)$': '<rootDir>/styles/$1',
   },
   testEnvironment: 'jest-environment-jsdom',
   testMatch: ['**/__tests__/**/*.ts?'],
-  testPathIgnorePatterns: ['/node_modules/', '/cypress/'],
   moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx'],
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '/jest.setup.js',
+    '/jest.config.ts',
+  ],
+  modulePathIgnorePatterns: ['/node_modules/'],
   transformIgnorePatterns: [
     '<rootDir>/[/\\\\]node_modules[/\\\\].+\\.(ts|tsx)$',
   ],
   transform: {
     '^.+\\.(ts|tsx)$': '@swc/jest',
-    '\\.graphql$': [
-      'graphql-let/jestTransformer',
-      { subsequentTransformer: '@swc/jest' },
-    ],
   },
   watchPlugins: [
     'jest-watch-typeahead/filename',

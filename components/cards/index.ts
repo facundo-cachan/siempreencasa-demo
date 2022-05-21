@@ -1,9 +1,15 @@
 import type { Product } from 'lib/interfaces'
 import Default from './default'
-export { Default }
+import Horizontal from './horizontal'
+export { Default, Horizontal }
 
 export type CardType = Product & {
-  hashtgs: string[]
+  name: string
+  categories?: string[]
+  description: string
+  image_url: string
+  price_per_litre: string
   clickOnImage?: () => void
   clickBtnPrimary?: () => void
+  clickBtnSecondary?: () => void
 }

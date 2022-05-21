@@ -3,17 +3,16 @@
  * @returns Page Home
  */
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
-import Image from 'next/image'
 import axios from 'axios'
 import styled from 'styled-components'
 
 import useAppContext from 'context/app'
-import WideScreen from 'components/layouts/default'
+import Layout from 'components/layouts/default'
 import uuid from 'utils/uuid'
 import type { Product } from 'lib/interfaces'
-import { Buttons, Cards, Modals, Img } from 'components/'
+import { Cards, Modals, SearchBox } from 'components/'
 
 export type IndexProps = {
   products: Product[]
@@ -36,16 +35,25 @@ const CardsList = styled.ul`
   padding: 0;
   justify-content: space-between;
 `
-const CarItem = styled.li`
+const CardItem = styled.li`
   display: flex;
   padding: 1rem;
   max-width: 15vw;
 `
+const Search = styled.div`
+  text-align: -webkit-center;
+  padding-top: '2rem';
+`
 
 const Product: NextPage<IndexProps> = ({ products }: IndexProps) => {
-  const { dispatch } = useAppContext()
+  const { state, dispatch } = useAppContext()
   const [recommended, setRecommended] = useState<Product[]>([])
+  const [productsFiltered, setProductsFiltered] = useState<Product[]>([])
   const [showModal, setShowModal] = useState<boolean>(false)
+
+  useEffect(() => {
+    setProductsFiltered(products)
+  }, [])
 
   const recommendations = (id: string) => {
     axios(`${process.env.NEXT_PUBLIC_URL}/api/recommendations/${id}`).then(
@@ -55,7 +63,7 @@ const Product: NextPage<IndexProps> = ({ products }: IndexProps) => {
         },
       }) => {
         if (recommendations) {
-          recommendations.forEach((recommendation) => {
+          recommendations.forEach((recommendation: any) => {
             axios(
               `${process.env.NEXT_PUBLIC_URL}/api/products/${recommendation}`
             ).then(({ data }) => {
@@ -82,71 +90,70 @@ const Product: NextPage<IndexProps> = ({ products }: IndexProps) => {
     })
     dispatch({ type: 'add', payload })
   }
+  const searchProduct = (e: string) => {
+    if (e.length > 3) {
+      const filtered = productsFiltered.filter((product) => {
+        return product.name.toLowerCase().indexOf(e.toLowerCase()) > -1
+      })
+      setProductsFiltered(filtered)
+    } else {
+      setProductsFiltered(products)
+    }
+  }
 
   return (
     <>
-      <WideScreen>
+      <Layout>
         <Main backgroundColor="#BBBDBE">
-          <h3>Products</h3>
-          <CardsWrapper>
-            <CardsList>
-              {products.map((product: Product) => (
-                <CarItem key={uuid()}>
-                  <Cards.Default
-                    title={product?.name}
-                    {...product}
-                    clickOnImage={() => recommendations(product?.product_id)}
-                    clickBtnPrimary={() => add(product?.product_id)}
-                  />
-                </CarItem>
-              ))}
-            </CardsList>
-          </CardsWrapper>
+          <Search>
+            <SearchBox placeholder="Name of product" action={searchProduct} />
+          </Search>
+          {productsFiltered.length > 0 && (
+            <CardsWrapper>
+              <CardsList>
+                {productsFiltered.map((product: Product) => {
+                  const btnSecondary =
+                    state.find(
+                      ({ product_id }: Partial<Product>) =>
+                        product_id === product?.product_id
+                    ) !== undefined
+                      ? () =>
+                          dispatch({
+                            type: 'remove',
+                            payload: product?.product_id,
+                          })
+                      : null
+                  return (
+                    <CardItem key={uuid()}>
+                      <Cards.Default
+                        title={product?.name}
+                        {...product}
+                        clickOnImage={() =>
+                          recommendations(product?.product_id)
+                        }
+                        clickBtnPrimary={() => add(product?.product_id)}
+                        clickBtnSecondary={btnSecondary}
+                      />
+                    </CardItem>
+                  )
+                })}
+              </CardsList>
+            </CardsWrapper>
+          )}
         </Main>
-        <footer>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Powered by{' '}
-            <span>
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                width={72}
-                height={16}
-              />
-            </span>
-          </a>
-        </footer>
-      </WideScreen>
+      </Layout>
       <Modals.Default
         title="Recomendados"
         onClose={() => setShowModal(false)}
         show={Boolean(recommended) && showModal}
       >
-        {recommended.map(
-          ({
-            product_id,
-            price_per_unit,
-            image_url,
-            name,
-          }: Partial<Product>) => (
-            <Modals.StyledModalHeader key={product_id}>
-              <Img src={image_url} />
-              <Modals.StyledModalSubTitle>
-                ARS {price_per_unit}
-              </Modals.StyledModalSubTitle>
-              <Modals.StyledModalDescription>
-                {name}
-              </Modals.StyledModalDescription>
-              <Buttons.Default text="Add" onClick={() => add(product_id)}>
-                Add
-              </Buttons.Default>
-            </Modals.StyledModalHeader>
-          )
-        )}
+        {recommended.map((product: Partial<Product>) => (
+          <Cards.Horizontal
+            key={uuid()}
+            {...product}
+            clickBtnPrimary={() => add(product.product_id)}
+          />
+        ))}
       </Modals.Default>
     </>
   )

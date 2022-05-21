@@ -43,3 +43,16 @@ export const CardFooter = styled.footer<{ backgroundColor?: string }>`
   margin-bottom: 1.25rem;
   font-weight: 400;
 `
+export const HorizontalCard = styled.div`
+  display: flex;
+  flex-direction: column
+`
+export const HorizontalLine = styled.p`
+  height: 100%;
+  width: 50%;
+  align-self: center
+`
+export const HorizontalImg = styled.div`
+  height: 100%;
+  width: 50%;
+`

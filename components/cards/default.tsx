@@ -1,5 +1,5 @@
 import { CardType } from '.'
-import { Img, Buttons } from 'components/'
+import { Img, Buttons } from 'components'
 import uuid from 'utils/uuid'
 
 import {
@@ -19,6 +19,7 @@ const Default = ({
   price_per_litre,
   clickOnImage,
   clickBtnPrimary,
+  clickBtnSecondary,
 }: CardType) => (
   <Card>
     {image_url && (
@@ -35,12 +36,19 @@ const Default = ({
       {description && <CardText>{description}</CardText>}
     </CardContent>
     <CardFooter backgroundColor="#99B282">
-      <p>
-        {categories.map((tag: string) => (
-          <span key={uuid()}>#{tag} </span>
-        ))}
-      </p>
-      <Buttons.Default text="Add" onClick={clickBtnPrimary} />
+      {categories && (
+        <p>
+          {categories.map((tag: string) => (
+            <span key={uuid()}>#{tag} </span>
+          ))}
+        </p>
+      )}
+      {clickBtnPrimary && (
+        <Buttons.Default text="Add" action={clickBtnPrimary} />
+      )}
+      {typeof clickBtnSecondary === 'function' && (
+        <Buttons.Default text="Remove" action={clickBtnSecondary} />
+      )}
     </CardFooter>
   </Card>
 )

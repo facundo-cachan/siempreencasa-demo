@@ -37,8 +37,8 @@
       "handle": "vino-novecento-raices-750-ml-tinto-cabernet-sauvignon",
       "compare_at_price": "1140.00",
       "allowed_packs": [1, 2, 3],
-      "name": "Vino Novecento Raices 750 ml - Tinto Cabernet Sauvignon",
-      "description": "Vino Novecento Raices 750 ml",
+      "name": "Cerveza",
+      "description": "Cerveza 150 ml",
       "discount_percentage": 20,
       "size": 750,
       "price_per_litre": "10"
@@ -51,7 +51,7 @@
       "list_price_id": "7",
       "sku": "VINO-9991-6-6",
       "categories": [
-         "vinos",
+         "cervezas",
          "mas vendidos"
       ],
       "units_per_pack": 6,
@@ -73,7 +73,7 @@
       "list_price_id": "7",
       "sku": "VINO-9991-6-6",
       "categories": [
-         "vinos",
+         "cervezas",
          "mas vendidos"
       ],
       "units_per_pack": 6,
@@ -81,8 +81,8 @@
       "handle": "vino-novecento-raices-750-ml-tinto-cabernet-sauvignon",
       "compare_at_price": "1140.00",
       "allowed_packs": [1, 2, 3],
-      "name": "Vino Novecento Raices 750 ml - Tinto Cabernet Sauvignon",
-      "description": "Vino Novecento Raices 750 ml",
+      "name": "Cerveza",
+      "description": "Cerveza Raices 750 ml",
       "discount_percentage": 20,
       "size": 750,
       "price_per_litre": "10"

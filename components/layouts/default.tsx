@@ -1,13 +1,16 @@
 /**
- * Layout - Page Container
- * @param children ChildrenNode
- * @returns Page Container
+ * `Layout Page Component`.
+ * @param {ReactNode} Childs component.
+ * @return {JSX.Element} Wrapper Component.
  */
 
-import { LayoutProps } from '.'
-
-const WideScreen = ({ children }: LayoutProps) => {
-  return children
+import { useEffect, useState } from 'react'
+import type { LayoutProps } from '.'
+const Layout = ({ children }: LayoutProps): JSX.Element => {
+  const [isMounted, setIsMounted] = useState<boolean>(false)
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+  return !isMounted ? <div>Loading ...</div> : children
 }
-
-export default WideScreen
+export default Layout

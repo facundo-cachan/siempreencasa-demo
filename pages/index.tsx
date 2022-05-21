@@ -6,11 +6,11 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
 
-import WideScreen from 'components/layouts/default'
+import Layout from 'components/layouts/default'
 
 const Home: NextPage = () => {
   return (
-    <WideScreen>
+    <Layout>
       <main></main>
       <footer>
         <a
@@ -24,7 +24,7 @@ const Home: NextPage = () => {
           </span>
         </a>
       </footer>
-    </WideScreen>
+    </Layout>
   )
 }
 

@@ -33,7 +33,7 @@ export const StyledModalDescription = styled.h5`
 `
 export const StyledModal: StyledComponent<'div', any, {}, never> = styled.div`
   height: auto;
-  width: ${({ width }: { width: string }) => (width ? width : '100px')};
+  width: ${({ width }: { width: string }) => (width ? width : 'auto')};
   background: white;
   border-radius: 15px;
   padding: 15px;
