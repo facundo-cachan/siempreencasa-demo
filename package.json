@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/facundo-cachan/siempreencasa-demo"
   },
-  "homepage": "https://siempreencasa-demo.vercel.app/",
+  "homepage": "https://siempreencasa-demo-git-master-facundo-cachan.vercel.app/",
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown",
     "*.{js,ts,tsx, jsx}": [
