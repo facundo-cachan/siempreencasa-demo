@@ -21,3 +21,6 @@ body {
   text-align: center;
   min-width: 1em;
 }
+li {
+  list-style: none;
+}

@@ -1,47 +1,34 @@
 import { useEffect, useState } from 'react'
-import ReactDOM from 'react-dom'
+import { createPortal } from 'react-dom'
 import {
   StyledModalOverlay,
   StyledModal,
   StyledModalHeader,
   StyledModalBody,
   StyledModalTitle,
+  ModalType,
 } from '.'
+import { Icon } from 'components'
 
-const Default = ({ show, onClose, children, title }) => {
+const Default = ({ show, onClose, children, title }: ModalType) => {
   const [isBrowser, setIsBrowser] = useState(false)
 
   useEffect(() => {
     setIsBrowser(true)
   }, [])
 
-  const handleCloseClick = (e) => {
-    e.preventDefault()
-    onClose()
-  }
-
-  const modalContent = show ? (
-    <StyledModalOverlay>
-      <StyledModal width="20%">
-        <StyledModalHeader>
-          <a href="#" onClick={handleCloseClick}>
-            x
-          </a>
-        </StyledModalHeader>
+  return isBrowser && show ? createPortal(<StyledModalOverlay>
+    <StyledModal width="20%">
+      <StyledModalHeader>
         {title && <StyledModalTitle>{title}</StyledModalTitle>}
-        <StyledModalBody>{children}</StyledModalBody>
-      </StyledModal>
-    </StyledModalOverlay>
-  ) : null
-
-  if (isBrowser) {
-    return ReactDOM.createPortal(
-      modalContent,
-      document.getElementById('modal-root')
-    )
-  } else {
-    return null
-  }
+        <a href="#" onClick={onClose}>
+          <Icon icon="xmark fa-2xs" />
+        </a>
+      </StyledModalHeader>
+      <StyledModalBody>{children}</StyledModalBody>
+    </StyledModal>
+  </StyledModalOverlay>,
+    document.getElementById('modal-root')) : null
 }
 
 export default Default

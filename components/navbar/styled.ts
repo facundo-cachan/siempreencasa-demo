@@ -1,12 +1,7 @@
-import styled, { StyledComponent } from 'styled-components'
+import styled from 'styled-components'
 
-export const NavbarContainer: StyledComponent<
-  'nav',
-  any,
-  {},
-  never
-> = styled.nav`
-  height: ${({ extendNavbar }: { extendNavbar: boolean }) =>
+export const NavbarContainer = styled.nav<{ extendNavbar?: boolean }>`
+  height: ${({ extendNavbar }) =>
     extendNavbar ? '30px' : '50px'};
   display: flex;
   align-items: center;

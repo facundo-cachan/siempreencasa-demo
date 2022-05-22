@@ -1,5 +1,5 @@
-import { ReactNode } from 'react'
-import styled, { StyledComponent } from 'styled-components'
+import { MouseEventHandler, ReactNode } from 'react'
+import styled from 'styled-components'
 import type { Buttons } from 'components'
 
 import Default from './default'
@@ -8,6 +8,8 @@ export { Default, Cart }
 
 export type ModalType = {
   children?: ReactNode
+  show?: boolean
+  onClose?: MouseEventHandler<HTMLAnchorElement>
   active: boolean
   title: string
   btnPrimaryText: string
@@ -19,7 +21,8 @@ export const StyledModalBody = styled.div`
 `
 export const StyledModalHeader = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   font-size: 25px;
 `
 export const StyledModalTitle = styled.h1`
@@ -31,9 +34,9 @@ export const StyledModalSubTitle = styled.h3`
 export const StyledModalDescription = styled.h5`
   font-size: 0.7rem;
 `
-export const StyledModal: StyledComponent<'div', any, {}, never> = styled.div`
+export const StyledModal = styled.div<{ width?: string }>`
   height: auto;
-  width: ${({ width }: { width: string }) => (width ? width : 'auto')};
+  width: ${({ width }) => (width ? width : 'auto')};
   background: white;
   border-radius: 15px;
   padding: 15px;

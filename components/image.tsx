@@ -12,17 +12,19 @@ export type ImageProps = {
   src: string
   sizes?: number[]
   alt?: string
-  layout?: 'fixed' | 'responsive' | 'fill'
+  layout?: 'fixed' | 'responsive' | 'fill' | 'fixed'
 }
 
 const Responsive = ({ alt, sizes, src, layout }: ImageProps): JSX.Element => (
   <Image
     {...layout}
     priority
+    placeholder="blur"
+    blurDataURL="https://via.placeholder.com/150"
     src={src}
     alt={alt}
-    height={sizes ? sizes[0] : '100%'}
-    width={sizes ? sizes[1] : '100%'}
+    width={sizes[0] ? sizes[0] : '100%'}
+    height={sizes[1] ? sizes[1] : sizes[0]}
     quality={100}
   />
 )

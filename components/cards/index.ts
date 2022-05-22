@@ -5,6 +5,9 @@ export { Default, Horizontal }
 
 export type CardType = Product & {
   name: string
+  height?: string
+  img?: number
+  fontSize?: string
   categories?: string[]
   description: string
   image_url: string

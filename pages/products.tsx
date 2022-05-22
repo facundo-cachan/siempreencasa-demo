@@ -1,6 +1,7 @@
 /**
- * Page Index
- * @returns Page Home
+ * Page Products
+ * @param {object} products - Array of products.
+ * @returns Page Products
  */
 
 import { useEffect, useState } from 'react'
@@ -13,6 +14,7 @@ import Layout from 'components/layouts/default'
 import uuid from 'utils/uuid'
 import type { Product } from 'lib/interfaces'
 import { Cards, Modals, SearchBox } from 'components/'
+import { device } from 'utils/responsive'
 
 export type IndexProps = {
   products: Product[]
@@ -21,29 +23,26 @@ export type IndexProps = {
 const Main = styled.main<{ backgroundColor?: string }>`
   background-color: ${({ backgroundColor }) =>
     backgroundColor ? backgroundColor : '#fff'};
+  width: 100vw;
   min-width: 100vw;
-`
+`;
 const CardsWrapper = styled.div`
   max-width: 90vw;
   margin: 0 auto;
-`
-const CardsList = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  justify-content: space-between;
-`
+  @media screen and ${device.desktop} {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
 const CardItem = styled.li`
-  display: flex;
-  padding: 1rem;
-  max-width: 15vw;
-`
+  @media screen and ${device.desktop} {
+    padding: 1rem;
+  }
+`;
 const Search = styled.div`
   text-align: -webkit-center;
   padding-top: '2rem';
-`
+`;
 
 const Product: NextPage<IndexProps> = ({ products }: IndexProps) => {
   const { state, dispatch } = useAppContext()
@@ -100,6 +99,10 @@ const Product: NextPage<IndexProps> = ({ products }: IndexProps) => {
       setProductsFiltered(products)
     }
   }
+  const closeModal = () => {
+    setShowModal(!showModal);
+    setRecommended([])
+  }
 
   return (
     <>
@@ -110,50 +113,53 @@ const Product: NextPage<IndexProps> = ({ products }: IndexProps) => {
           </Search>
           {productsFiltered.length > 0 && (
             <CardsWrapper>
-              <CardsList>
-                {productsFiltered.map((product: Product) => {
-                  const btnSecondary =
-                    state.find(
-                      ({ product_id }: Partial<Product>) =>
-                        product_id === product?.product_id
-                    ) !== undefined
-                      ? () =>
-                          dispatch({
-                            type: 'remove',
-                            payload: product?.product_id,
-                          })
-                      : null
-                  return (
-                    <CardItem key={uuid()}>
-                      <Cards.Default
-                        title={product?.name}
-                        {...product}
-                        clickOnImage={() =>
-                          recommendations(product?.product_id)
-                        }
-                        clickBtnPrimary={() => add(product?.product_id)}
-                        clickBtnSecondary={btnSecondary}
-                      />
-                    </CardItem>
-                  )
-                })}
-              </CardsList>
+              {productsFiltered.map((product: Product) => {
+                const btnSecondary =
+                  state.find(
+                    ({ product_id }: Partial<Product>) =>
+                      product_id === product?.product_id
+                  ) !== undefined
+                    ? () =>
+                      dispatch({
+                        type: 'remove',
+                        payload: product?.product_id,
+                      })
+                    : null
+                return (
+                  <CardItem key={uuid()}>
+                    <Cards.Default
+                      title={product?.name}
+                      {...product}
+                      clickOnImage={() =>
+                        recommendations(product?.product_id)
+                      }
+                      clickBtnPrimary={() => add(product?.product_id)}
+                      clickBtnSecondary={btnSecondary}
+                    />
+                  </CardItem>
+                )
+              })}
             </CardsWrapper>
           )}
         </Main>
       </Layout>
       <Modals.Default
         title="Recomendados"
-        onClose={() => setShowModal(false)}
+        onClose={closeModal}
         show={Boolean(recommended) && showModal}
       >
-        {recommended.map((product: Partial<Product>) => (
+        {recommended.map((recommend: Partial<Product>) => (
           <Cards.Horizontal
             key={uuid()}
-            {...product}
-            clickBtnPrimary={() => add(product.product_id)}
+            height="12vh"
+            img={90}
+            fontSize="80%"
+            title={recommend?.name}
+            {...recommend}
+            clickBtnPrimary={() => add(recommend?.product_id)}
           />
-        ))}
+        )
+        )}
       </Modals.Default>
     </>
   )

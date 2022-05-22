@@ -9,10 +9,15 @@ import {
   CardTitle,
   CardText,
   CardFooter,
+  CardButtons,
+  CardCategories
 } from './styled'
 
 const Default = ({
   name,
+  height,
+  img,
+  fontSize,
   categories,
   description,
   image_url,
@@ -21,33 +26,37 @@ const Default = ({
   clickBtnPrimary,
   clickBtnSecondary,
 }: CardType) => (
-  <Card>
+  <Card height={height}>
     {image_url && (
       <CardImage onClick={clickOnImage}>
-        <Img src={image_url} alt={name} sizes={[200, 200]} />
+        <Img src={image_url} alt={name} sizes={[img || 150]} />
       </CardImage>
     )}
     <CardContent>
       {name && (
-        <CardTitle>
-          {name} | ARS {price_per_litre}$
+        <CardTitle fontSize={fontSize}>
+          {name} <br /> ARS {price_per_litre}$
         </CardTitle>
       )}
-      {description && <CardText>{description}</CardText>}
-    </CardContent>
-    <CardFooter backgroundColor="#99B282">
-      {categories && (
-        <p>
-          {categories.map((tag: string) => (
-            <span key={uuid()}>#{tag} </span>
-          ))}
-        </p>
-      )}
-      {clickBtnPrimary && (
+      <CardButtons>
+      {
+      clickBtnPrimary && (
         <Buttons.Default text="Add" action={clickBtnPrimary} />
       )}
       {typeof clickBtnSecondary === 'function' && (
         <Buttons.Default text="Remove" action={clickBtnSecondary} />
+      )
+      }
+      </CardButtons>
+    </CardContent>
+    <CardFooter backgroundColor="#99B282">
+    {description && <CardText>{description}</CardText>}
+      {categories && (
+        <CardCategories>
+          {categories.map((tag: string) => (
+            <span key={uuid()}>#{tag.replace(" ", "_")} </span>
+          ))}
+        </CardCategories>
       )}
     </CardFooter>
   </Card>
