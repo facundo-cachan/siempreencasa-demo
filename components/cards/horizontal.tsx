@@ -1,43 +1,50 @@
 import { CardType } from '.'
 import { Img, Buttons } from 'components'
-import uuid from 'utils/uuid'
-import { HorizontalCard, HorizontalLine, HorizontalImg } from './styled'
 
-const Horizontal = ({
+import {
+  CardHorizontal,
+  CardImage,
+  CardContentHorizontal,
+  CardTitle,
+  CardButtons
+} from './styled'
+
+const Default = ({
   name,
-  description,
+  img,
+  fontSize,
   image_url,
+  price_per_litre,
+  clickOnImage,
   clickBtnPrimary,
   clickBtnSecondary,
 }: CardType) => (
-  <HorizontalCard key={uuid()}>
-    <div style={{ display: 'flex' }}>
-      <HorizontalImg>
-        <Img src={image_url} />
-      </HorizontalImg>
-      <HorizontalLine>
-        {description}
-        <br />
-        {name}
-        {clickBtnPrimary && (
-          <>
-            <br />
-            <Buttons.Default text="Add" action={clickBtnPrimary}>
-              Add
-            </Buttons.Default>
-          </>
-        )}
-        {clickBtnSecondary && (
-          <>
-            <br />
-            <Buttons.Default text="Remove" action={clickBtnSecondary}>
-              Add
-            </Buttons.Default>
-          </>
-        )}
-      </HorizontalLine>
-    </div>
-  </HorizontalCard>
+  <CardHorizontal>
+    {image_url && (
+      <CardImage onClick={clickOnImage}>
+        <Img src={image_url} alt={name} sizes={[img || 150]} />
+      </CardImage>
+    )}
+    <CardContentHorizontal>
+      {name && (
+        <CardTitle fontSize={fontSize}>
+          {name} <br /> ARS {price_per_litre}$
+        </CardTitle>
+      )}
+
+      <CardButtons>
+      {
+      clickBtnPrimary && (
+        <Buttons.Default text="Add" action={clickBtnPrimary} />
+      )}
+      {typeof clickBtnSecondary === 'function' && (
+        <Buttons.Default text="Remove" action={clickBtnSecondary} />
+      )
+      }
+      </CardButtons>
+
+    </CardContentHorizontal>
+  </CardHorizontal>
 )
 
-export default Horizontal
+export default Default

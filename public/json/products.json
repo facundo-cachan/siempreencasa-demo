@@ -15,8 +15,8 @@
       "handle": "vino-novecento-raices-750-ml-tinto-cabernet-sauvignon",
       "compare_at_price": "1140.00",
       "allowed_packs": [1, 2, 3],
-      "name": "Vino Novecento Raices 750 ml - Tinto Cabernet Sauvignon",
-      "description": "Vino Novecento Raices 750 ml",
+      "name": "Vino Novecento Raices 750 ml",
+      "description": "Vino Novecento Raices 750 ml - Tinto Cabernet Sauvignon",
       "discount_percentage": 20,
       "size": 750,
       "price_per_litre": "10"
@@ -29,18 +29,18 @@
       "list_price_id": "7",
       "sku": "VINO-9991-6-6",
       "categories": [
-         "vinos",
+         "cerveza",
          "mas vendidos"
       ],
       "units_per_pack": 6,
-      "image_url": "https://cdn.shopify.com/s/files/1/0257/2242/1293/products/SEC-Vinos-Novecento-Raices-Cabernet.jpg?v=1585767255",
-      "handle": "vino-novecento-raices-750-ml-tinto-cabernet-sauvignon",
+      "image_url": "https://cdn.shopify.com/s/files/1/0254/2947/5433/products/cerveza-corona-330-siempreencasa_500x.png?v=1629814680?nocache=0.8679752597938764",
+      "handle": "cerveza-corona-330ml",
       "compare_at_price": "1140.00",
       "allowed_packs": [1, 2, 3],
-      "name": "Cerveza",
-      "description": "Cerveza 150 ml",
+      "name": "Corona",
+      "description": "Cerveza Corona 330ml",
       "discount_percentage": 20,
-      "size": 750,
+      "size": 330,
       "price_per_litre": "10"
    },
    {
@@ -51,18 +51,18 @@
       "list_price_id": "7",
       "sku": "VINO-9991-6-6",
       "categories": [
-         "cervezas",
+         "cerveza",
          "mas vendidos"
       ],
       "units_per_pack": 6,
-      "image_url": "https://cdn.shopify.com/s/files/1/0257/2242/1293/products/SEC-Vinos-Novecento-Raices-Cabernet.jpg?v=1585767255",
-      "handle": "vino-novecento-raices-750-ml-tinto-cabernet-sauvignon",
+      "image_url": "https://cdn.shopify.com/s/files/1/0254/2947/5433/products/cerveza-patagonia-amber-lager-730-siempreencasa_500x.png?v=1629814801?nocache=0.5598330201806092",
+      "handle": "cerveza-patagonia-amber-lager-730ml",
       "compare_at_price": "1140.00",
       "allowed_packs": [1, 2, 3],
-      "name": "Vino Novecento Raices 750 ml - Tinto Cabernet Sauvignon",
-      "description": "Vino Novecento Raices 750 ml",
+      "name": "Cerveza Patagonia Amber Lager 730ml",
+      "description": "Cerveza Patagonia Amber Lager 730ml",
       "discount_percentage": 20,
-      "size": 750,
+      "size": 730,
       "price_per_litre": "10"
    },
    {
@@ -73,16 +73,16 @@
       "list_price_id": "7",
       "sku": "VINO-9991-6-6",
       "categories": [
-         "cervezas",
+         "vino",
          "mas vendidos"
       ],
       "units_per_pack": 6,
-      "image_url": "https://cdn.shopify.com/s/files/1/0257/2242/1293/products/SEC-Vinos-Novecento-Raices-Cabernet.jpg?v=1585767255",
-      "handle": "vino-novecento-raices-750-ml-tinto-cabernet-sauvignon",
+      "image_url": "https://cdn.shopify.com/s/files/1/0254/2947/5433/products/vino-novecento-raices-malbec-750-siempreencasa_2e368c9b-5b11-4f7d-8124-0c880282d1c6_500x.png?v=1636635007?nocache=0.20710625114202474",
+      "handle": "vino-novecento-raices-750-ml-tinto-malbec",
       "compare_at_price": "1140.00",
       "allowed_packs": [1, 2, 3],
-      "name": "Cerveza",
-      "description": "Cerveza Raices 750 ml",
+      "name": "Vino Novecento Raices 750 ml",
+      "description": "Vino Novecento Raices 750 ml - Tinto Malbec",
       "discount_percentage": 20,
       "size": 750,
       "price_per_litre": "10"

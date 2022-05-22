@@ -6,11 +6,13 @@
 
 import { useEffect, useState } from 'react'
 import type { LayoutProps } from '.'
-const Layout = ({ children }: LayoutProps): JSX.Element => {
+import { Container } from './styled'
+
+const Layout = ({ children }: LayoutProps) => {
   const [isMounted, setIsMounted] = useState<boolean>(false)
   useEffect(() => {
     setIsMounted(true)
   }, [])
-  return !isMounted ? <div>Loading ...</div> : children
+  return !isMounted ? <div>Loading ...</div> : <Container>{children}</Container>
 }
 export default Layout

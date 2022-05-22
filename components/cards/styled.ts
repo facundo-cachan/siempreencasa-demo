@@ -1,58 +1,124 @@
 import styled from 'styled-components'
+import { device } from 'utils/responsive'
 
-export const Card = styled.div<{ backgroundColor?: string }>`
+export const Card = styled.div<{ backgroundColor?: string, height?: number }>`
   background-color: ${({ backgroundColor }) =>
     backgroundColor ? backgroundColor : '#fff'};
-  border-radius: 0.25rem;
-  box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  height: auto;
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: 1fr 1fr; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "image container"
+    "footer footer";
+  @media screen and ${device.desktop} {
+    height: ${({ height }) =>
+    height ? height : '40vh'};
+  }
+  @media screen and ${device.laptop} {
+    background-color: purple;
+  }
+  @media screen and ${device.mobileM} {
+    font-size: 1.8rem;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 1fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+      "image container"
+  }
 `
 export const CardImage = styled.div`
-  height: auto;
-  max-width: 100%;
-  vertical-align: middle;
-  text-align: center;
+  grid-area: image;
+  @media screen and ${device.desktop} {
+    width: 100%;
+  }
 `
 export const CardContent = styled.div`
-  padding: 1rem;
-  background: linear-gradient(to bottom left, #ef8d9c 40%, #ffc39e 100%);
+  grid-area: container;
+  @media screen and ${device.desktop} {
+    height: 30vh;
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 1fr 1fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+      "title title title"
+      "buttons buttons buttons";
+  }
 `
-export const CardTitle = styled.h2`
-  color: #ffffff;
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: capitalize;
-  margin: 0px;
+export const CardTitle = styled.h2<{ fontSize?: string }>`
+  grid-area: title;
+  @media screen and ${device.desktop} {
+    padding: 5px;
+    font-size: ${({ fontSize }) =>
+    fontSize ? fontSize : '100%'};
+  }
+  @media screen and ${device.mobileM} {
+    font-size: 50%;
+  }
+`
+export const CardButtons = styled.div`
+  grid-area: buttons;
+  height: auto;
+  @media screen and ${device.desktop} {
+
+  }
 `
 export const CardText = styled.p`
-  color: #ffffff;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  margin-bottom: 1.25rem;
-  font-weight: 400;
+  @media screen and ${device.desktop} {
+    background-color: purple;
+    font-size: 0.8rem;
+  }
+  @media screen and ${device.mobileM} {
+    display: none;
+  }
+`
+export const CardCategories = styled.div`
+  @media screen and ${device.desktop} {
+    grid-area: categories;
+  }
+  @media screen and ${device.mobileM} {
+    display: none;
+  }
 `
 export const CardFooter = styled.footer<{ backgroundColor?: string }>`
   background-color: ${({ backgroundColor }) =>
     backgroundColor ? backgroundColor : '#fff'};
-  font-size: 0.875rem;
-  line-height: 1.5;
-  margin-bottom: 1.25rem;
-  font-weight: 400;
+  grid-area: footer;
+  @media screen and ${device.desktop} {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      "description description description"
+      "categories categories categories";
+  }
+  @media screen and ${device.mobileM} {
+    background-color: yellow;
+  }
 `
-export const HorizontalCard = styled.div`
-  display: flex;
-  flex-direction: column
+
+
+export const CardHorizontal = styled.div`
+  @media screen and ${device.desktop} {
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 1fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+      "image content-horizontal"; 
+  }
 `
-export const HorizontalLine = styled.p`
-  height: 100%;
-  width: 50%;
-  align-self: center
-`
-export const HorizontalImg = styled.div`
-  height: 100%;
-  width: 50%;
+export const CardContentHorizontal = styled.div`
+  grid-area: content-horizontal;
+  @media screen and ${device.desktop} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      "title title"
+      "buttons buttons"
+  }
 `

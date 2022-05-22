@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import ReactDOM from 'react-dom'
+import { createPortal } from 'react-dom'
 
 import useAppContext from 'context/app'
 import {
@@ -8,11 +8,13 @@ import {
   StyledModalHeader,
   StyledModalBody,
   StyledModalTitle,
-  StyledModalFooter,
+  ModalType,
 } from '.'
-import { Buttons } from 'components/'
+import { Buttons, Icon, Modals, Img } from 'components'
+import uuid from 'utils/uuid'
+import type { Product } from 'lib/interface'
 
-const Default = ({ show, onClose, children, title }) => {
+const Cart = ({ show, onClose, title }: ModalType) => {
   const { state, dispatch } = useAppContext()
   const [isBrowser, setIsBrowser] = useState(false)
 
@@ -20,41 +22,57 @@ const Default = ({ show, onClose, children, title }) => {
     setIsBrowser(true)
   }, [])
 
-  const handleCloseClick = (e) => {
-    e.preventDefault()
-    onClose()
-  }
-
-  const modalContent = show ? (
-    <StyledModalOverlay>
-      <StyledModal width="30%">
-        <StyledModalHeader>
-          <a onClick={handleCloseClick}>x</a>
-        </StyledModalHeader>
+  return isBrowser && show ? createPortal(<StyledModalOverlay>
+    <StyledModal width="20%">
+      <StyledModalHeader>
         {title && <StyledModalTitle>{title}</StyledModalTitle>}
-        <StyledModalBody>{children}</StyledModalBody>
-        <StyledModalFooter>
-          {state.length > 0 && (
+        <a href="#" onClick={onClose}>
+          <Icon icon="xmark fa-2xs" />
+        </a>
+      </StyledModalHeader>
+      <StyledModalBody>
+        {state.length > 0 ? (
+          state.map(
+            ({
+              product_id,
+              price_per_unit,
+              image_url,
+              name,
+            }: Partial<Product>) => (
+              <Modals.StyledModalHeader key={uuid()}>
+                <Img src={image_url} sizes={[80]} />
+                <Modals.StyledModalSubTitle>
+                  ARS {price_per_unit}
+                </Modals.StyledModalSubTitle>
+                <Modals.StyledModalDescription>
+                  {name}
+                </Modals.StyledModalDescription>
+                <Buttons.Default
+                  text="Remove"
+                  action={() =>
+                    dispatch({ type: 'remove', payload: product_id })
+                  }
+                >
+                  Add
+                </Buttons.Default>
+              </Modals.StyledModalHeader>
+            )
+          )
+        ) : (
+          <h4>Cart Shop Empty</h4>
+        )}
+        {
+          state.length > 0 && (
             <Buttons.Default
               text="Reset"
               action={() => dispatch({ type: 'reset' })}
-            >
-              Add
-            </Buttons.Default>
-          )}
-        </StyledModalFooter>
-      </StyledModal>
-    </StyledModalOverlay>
-  ) : null
-
-  if (isBrowser) {
-    return ReactDOM.createPortal(
-      modalContent,
-      document.getElementById('modal-root')
-    )
-  } else {
-    return null
-  }
+            />
+          )
+        }
+      </StyledModalBody>
+    </StyledModal>
+  </StyledModalOverlay>,
+    document.getElementById('modal-root')) : null
 }
 
-export default Default
+export default Cart
