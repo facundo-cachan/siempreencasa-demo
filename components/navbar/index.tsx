@@ -58,11 +58,7 @@ const NavBar = ({ providers }: NavbarProps) => {
             {!session &&
               providers &&
               Object.values(providers).map(({ id, name }: any) => (
-                <Buttons.Default
-                  key={uuid()}
-                  text={name}
-                  onClick={() => signIn(id)}
-                />
+                <Buttons.Default key={uuid()} text={name} action={() => signIn(id)} color={id} id={`${name}-btn`} />
               ))}
           </NavBarList>
         </NavBarMenu>

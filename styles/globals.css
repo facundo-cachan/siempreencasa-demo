@@ -46,3 +46,13 @@ button {
   border-radius: 30%;
   padding: 10px;
 }
+.facebook {
+  background-color: rgb(59, 89, 152);
+  border-radius: 30%;
+  padding: 10px;
+}
+.google {
+  background-color: rgb(221, 75, 57);
+  border-radius: 30%;
+  padding: 10px;
+}
