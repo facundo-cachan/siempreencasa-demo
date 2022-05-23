@@ -1,17 +1,23 @@
 import Link from 'next/link'
-import { useState } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react'
 
-import useAppContext from 'context/app'
 import uuid from 'utils/uuid'
-import { Icon, Img, Buttons, Modals } from 'components/'
+import { CartShopIcon, Img, Buttons, Icon } from 'components'
 import {
-  NavbarContainer,
-  LogoImg,
-  NavbarLinkContainer,
-  NavbarStyledLink,
-  OpenLinksButton,
+  NavBarHeader,
+  NavBarLogo,
+  NavBarMenu,
+  NavBarList,
+  NavBarItem,
+  NavBarA,
+  NavBarMenuMobile,
+  NavBarMobileMenu
 } from './styled'
+import { useState } from 'react'
+
+type NavbarProps = {
+  providers: string
+}
 
 type Item = {
   name: string
@@ -19,70 +25,58 @@ type Item = {
   href: string
 }
 
-type NavbarProps = {
-  providers: string
-}
-
 const ALink = ({ href, name }: Item) => (
   <Link href={href} passHref>
-    <NavbarStyledLink>{name}</NavbarStyledLink>
+    <NavBarA>{name}</NavBarA>
   </Link>
 )
 
-const Logo = () => (
-  <LogoImg>
-    <Img
-      src={`${process.env.NEXT_PUBLIC_URL}/img/new_logo-black.svg`}
-      alt="Siempre En Casa - Logo"
-      sizes={[80, 130]}
-    />
-  </LogoImg>
-)
-
 const NavBar = ({ providers }: NavbarProps) => {
-  const { state } = useAppContext()
-  const [showModal, setShowModal] = useState<boolean>(false)
-  const [showMenu, setShowMenu] = useState<boolean>(false)
   const { data: session } = useSession()
+  const [displayNav, setDisplayNav] = useState<boolean>(false)
 
   return (
     <>
-      <NavbarContainer extendNavbar={showMenu}>
-        <Logo />
-        <NavbarLinkContainer>
-          <ALink href="/" name="Home" />
-          <ALink href="/products" name="Products" />
-          {session && (
-            <NavbarStyledLink onClick={() => signOut()}>
-              Log out
-            </NavbarStyledLink>
-          )}
-          {!session &&
-            providers &&
-            Object.values(providers).map(({ id, name }: any) => (
-              <Buttons.Default
-                key={uuid()}
-                text={name}
-                onClick={() => signIn(id)}
-              />
-            ))}
-          <OpenLinksButton
-            onClick={() => {
-              setShowMenu((curr) => !curr)
-            }}
-          >
-            {showMenu ? <>&#10005;</> : <> &#8801;</>}
-          </OpenLinksButton>
-          <NavbarStyledLink onClick={() => setShowModal(!showModal)}>
-            <Icon icon="cart-shopping" badge={state?.length || 0} />
-          </NavbarStyledLink>
-        </NavbarLinkContainer>
-      </NavbarContainer>
-      <Modals.Cart
-        title="A comprar"
-        show={showModal}
-        onClose={() => setShowModal(!showModal)}
-      />
+      <NavBarHeader>
+        <NavBarLogo>
+          <Img
+            src={`${process.env.NEXT_PUBLIC_URL}/img/new_logo-black.svg`}
+            alt="Siempre En Casa - Logo"
+            sizes={[80, 130]}
+          />
+        </NavBarLogo>
+        <NavBarMenu>
+          <NavBarList>
+            <CartShopIcon />
+            <NavBarItem><ALink href="/" name='Home' /></NavBarItem>
+            <NavBarItem><ALink href="/products" name="Products" /></NavBarItem>
+            {session && (
+              <NavBarA onClick={() => signOut()}>
+                Log out
+              </NavBarA>
+            )}
+            {!session &&
+              providers &&
+              Object.values(providers).map(({ id, name }: any) => (
+                <Buttons.Default
+                  key={uuid()}
+                  text={name}
+                  onClick={() => signIn(id)}
+                />
+              ))}
+          </NavBarList>
+        </NavBarMenu>
+        <Buttons.Mask action={() => setDisplayNav(!displayNav)} id="menu-btn">
+          <Icon icon={`${displayNav ? 'xmark' : 'bars'} fa-2xs`} />
+        </Buttons.Mask>
+      </NavBarHeader>
+      <NavBarMenuMobile className={displayNav ? 'open' : 'close'}>
+        <NavBarMobileMenu show={displayNav}>
+          <NavBarItem><NavBarA href="/home">Home</NavBarA></NavBarItem>
+          <NavBarItem><NavBarA href="/products">Products</NavBarA></NavBarItem>
+          <NavBarItem><NavBarA href="/about">About</NavBarA></NavBarItem>
+        </NavBarMobileMenu>
+      </NavBarMenuMobile>
     </>
   )
 }

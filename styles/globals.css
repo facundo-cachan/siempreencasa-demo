@@ -9,10 +9,10 @@ body {
 }
 .p1[data-count]:after {
   position: absolute;
-  right: 10%;
-  top: 15%;
+  right: 35%;
+  top: 22%;
   content: attr(data-count);
-  font-size: 40%;
+  font-size: 35%;
   padding: 0.2em;
   border-radius: 50%;
   line-height: 1em;
@@ -23,4 +23,26 @@ body {
 }
 li {
   list-style: none;
+}
+button {
+  background-color: transparent;
+  border: none;
+  margin: 3px;
+}
+.primary {
+  color: blue;
+  background-color: rgb(163, 236, 212);
+}
+.secondary {
+  color: rgb(79, 118, 79);
+}
+.add {
+  background-color: rgb(207, 224, 140);
+  border-radius: 30%;
+  padding: 10px;
+}
+.remove {
+  background-color: rgb(112, 62, 132);
+  border-radius: 30%;
+  padding: 10px;
 }

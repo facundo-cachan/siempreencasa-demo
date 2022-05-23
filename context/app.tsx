@@ -35,7 +35,7 @@ export const AppProvider = ({ children }: ProviderType) => {
 const useAppContext = () => {
   const context = useContext(AppContext)
   if (!context) {
-    console.error('Error deploying App Context!!!')
+    return false
   }
   return context
 }
