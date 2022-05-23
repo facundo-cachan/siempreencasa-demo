@@ -7,7 +7,6 @@
 
 # testing
 /coverage
-/__tests__
 
 # next.js
 /.next/
@@ -21,6 +20,8 @@ tsconfig.tsbuildinfo
 .DS_Store
 *.pem
 *.txt
+/public/fallback*
+/public/workbox*
 
 # debug
 npm-debug.log*
