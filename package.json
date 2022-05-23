@@ -33,7 +33,7 @@
     "format": "prettier --check --write .",
     "lint": "eslint . --ext ts --ext tsx --ext js",
     "test": "jest --update-snapshot --detectOpenHandles --watchAll",
-    "coverage": "jest --collect-coverage",
+    "coverage": "watchman watch-del echo $pwd;watchman watch-project echo $pwd;jest --collect-coverage",
     "cypress:open": "cypress open",
     "test-all": "yarn lint && yarn type-check && yarn test",
     "analyzer": "ANALYZE=true NODE_ENV=test next build && yarn start",

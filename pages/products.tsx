@@ -10,13 +10,12 @@ import axios from 'axios'
 import styled from 'styled-components'
 
 import useAppContext from 'context/app'
-import Layout from 'components/layouts/default'
 import uuid from 'utils/uuid'
 import type { Product } from 'lib/interfaces'
-import { Cards, Modals, SearchBox } from 'components/'
+import { Layout, Cards, Modals, SearchBox } from 'components'
 import { device } from 'utils/responsive'
 
-export type IndexProps = {
+export type PageProps = {
   products: Product[]
 }
 
@@ -44,7 +43,7 @@ const Search = styled.div`
   padding-top: '2rem';
 `;
 
-const Product: NextPage<IndexProps> = ({ products }: IndexProps) => {
+const Product: NextPage<PageProps> = ({ products }: PageProps) => {
   const { state, dispatch } = useAppContext()
   const [recommended, setRecommended] = useState<Product[]>([])
   const [productsFiltered, setProductsFiltered] = useState<Product[]>([])
@@ -108,24 +107,13 @@ const Product: NextPage<IndexProps> = ({ products }: IndexProps) => {
     <>
       <Layout>
         <Main backgroundColor="#BBBDBE">
-          <Search>
-            <SearchBox placeholder="Name of product" action={searchProduct} />
-          </Search>
-          {productsFiltered.length > 0 && (
-            <CardsWrapper>
-              {productsFiltered.map((product: Product) => {
-                const btnSecondary =
-                  state.find(
-                    ({ product_id }: Partial<Product>) =>
-                      product_id === product?.product_id
-                  ) !== undefined
-                    ? () =>
-                      dispatch({
-                        type: 'remove',
-                        payload: product?.product_id,
-                      })
-                    : null
-                return (
+          {productsFiltered.length > 0 ? (
+            <>
+              <Search>
+                <SearchBox placeholder="Name of product" action={searchProduct} />
+              </Search>
+              <CardsWrapper>
+                {productsFiltered.map((product: Product) => (
                   <CardItem key={uuid()}>
                     <Cards.Default
                       title={product?.name}
@@ -134,13 +122,23 @@ const Product: NextPage<IndexProps> = ({ products }: IndexProps) => {
                         recommendations(product?.product_id)
                       }
                       clickBtnPrimary={() => add(product?.product_id)}
-                      clickBtnSecondary={btnSecondary}
+                      clickBtnSecondary={state?.find(
+                        ({ product_id }: Partial<Product>) =>
+                          product_id === product?.product_id
+                      ) !== undefined
+                        ? () =>
+                          dispatch({
+                            type: 'remove',
+                            payload: product?.product_id,
+                          })
+                        : null}
                     />
                   </CardItem>
                 )
-              })}
-            </CardsWrapper>
-          )}
+                )}
+              </CardsWrapper>
+            </>
+          ) : (<h3 style={{ textAlign: 'center' }}>No products</h3>)}
         </Main>
       </Layout>
       <Modals.Default

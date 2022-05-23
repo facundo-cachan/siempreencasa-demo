@@ -41,10 +41,10 @@ const Default = ({
       <CardButtons>
       {
       clickBtnPrimary && (
-        <Buttons.Default text="Add" action={clickBtnPrimary} />
+        <Buttons.Default text="Add" action={clickBtnPrimary} color="primary add" id="btn-add" />
       )}
       {typeof clickBtnSecondary === 'function' && (
-        <Buttons.Default text="Remove" action={clickBtnSecondary} />
+        <Buttons.Default text="Remove" action={clickBtnSecondary} color="secondary remove" id="btn-remove" />
       )
       }
       </CardButtons>

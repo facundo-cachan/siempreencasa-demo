@@ -1,7 +1,7 @@
 /**
  * Custom Icon.
  * @param {string} className optional name classe of styles.
- * @param {IconName} icon available default is true.
+ * @param {string} icon available default is true.
  * @param {number} badge optional, number items.
  * @returns {JSX.Element} Icon with optionals styles and icons.
  */
@@ -13,7 +13,10 @@ export type Icon = {
 }
 
 const Icon = ({ badge, icon, className }) => (
-  <span className="p1 fa-stack fa-2x has-badge" data-count={badge}>
+  <span
+    className="p1 fa-stack fa-2x has-badge"
+    data-count={badge}
+  >
     <i
       className={`p3 fa fa-stack-1x xfa-inverse fa-${icon || 'question'} ${
         className || ''

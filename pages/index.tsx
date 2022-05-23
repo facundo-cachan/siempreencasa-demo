@@ -5,7 +5,7 @@
 
 import type { NextPage } from 'next'
 
-import Layout from 'components/layouts/default'
+import { Layout } from 'components'
 
 const Home: NextPage = () => {
   return (
