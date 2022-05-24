@@ -11,8 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 2
-      - run: git checkout HEAD^
+          fetch-depth: 0
       
       - name: Run prettier
         run: npx prettier --write .*
