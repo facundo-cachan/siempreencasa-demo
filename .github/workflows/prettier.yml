@@ -24,5 +24,7 @@ jobs:
       - name: Push changes
         if: steps.git-check.outputs.modified == 'true'
         run: |
+          git config user.email "facundorc@gmail.com"
+          git config user.name "Facundo Cachan"
           git commit -am "Automated changes- Prettier"
           git push
