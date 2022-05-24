@@ -10,9 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
+      
       - name: Run prettier
         run: npx prettier --write .*
+          --config .prettierrc
+          --ext .js,.jsx,.ts,.tsx
+        continue-on-error: true
 
       - name: Check for modified files
         id: git-check
