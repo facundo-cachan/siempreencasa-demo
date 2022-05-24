@@ -14,4 +14,3 @@ jobs:
       uses: stefanoeb/jest-action@1.0.3
       with:
         jestArgs: jest.config.ts
-        continue-on-error: true
