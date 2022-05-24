@@ -14,9 +14,7 @@ jobs:
           fetch-depth: 0
       
       - name: Run prettier
-        run: npx prettier --write .*
-          --config .prettierrc
-          --ext .js,.jsx,.ts,.tsx
+        run: npm run format
         continue-on-error: true
 
       - name: Check for modified files
