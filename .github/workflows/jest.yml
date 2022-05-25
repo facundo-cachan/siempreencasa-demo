@@ -3,7 +3,7 @@ name: Tests
 on: [push]
 jobs:
   build:
-    runs-on: bullseye-slim
+    runs-on: debian:bullseye-slim
     steps:
     - uses: actions/checkout@v1
     - name: Run Jest
